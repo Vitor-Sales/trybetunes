@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={ <Layout /> }>
-        <Route path="/" element={ <Login /> } />
+        <Route index element={ <Login /> } />
         <Route path="/search" element={ <Search /> } />
         <Route path="/album/:id" element={ <Album /> } />
       </Route>
