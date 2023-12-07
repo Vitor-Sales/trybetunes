@@ -7,12 +7,15 @@ function Search() {
   const [artistValue, setArtistValue] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [albums, setAlbums] = useState<AlbumType[]>([]);
+  const [lastArtist, setLastArtist] = useState('');
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     setLoading(true);
     searchAlbumsAPI(artistValue)
       .then((data) => setAlbums(data))
       .then(() => {
+        setLastArtist(artistValue);
         setArtistValue('');
         setLoading(false);
       });
@@ -44,9 +47,7 @@ function Search() {
         ? (
           <div>
             <p>
-              Resultado de álbuns de:
-              {' '}
-              {albums[0].artistName}
+              {`Resultado de álbuns de: ${lastArtist}`}
             </p>
             {albums.map((album) => (
               <div key={ album.collectionId }>

@@ -1,14 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { createUser } from '../../services/userAPI';
 
 function Login() {
   const [loginValue, setLoginValue] = useState<string>('');
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const handleLoginClick = () => {
     setLoading(true);
     createUser({ name: loginValue })
-      .then(() => setLoading(false));
+      .then(() => {
+        setLoading(false);
+        navigate('/search');
+      });
   };
 
   return (
