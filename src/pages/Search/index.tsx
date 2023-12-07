@@ -54,6 +54,10 @@ function Search() {
                 <Link
                   to={ `/album/${album.collectionId}` }
                   data-testid={ `link-to-album-${album.collectionId}` }
+                  state={ {
+                    albumId: album.collectionId,
+                    artistName: lastArtist,
+                    albumName: album.collectionName } }
                 >
                   {album.collectionName}
                 </Link>
