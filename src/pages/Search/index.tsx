@@ -9,7 +9,7 @@ function Search() {
   const [albums, setAlbums] = useState<AlbumType[]>([]);
   const [lastArtist, setLastArtist] = useState('');
 
-  const handleClick = (e) => {
+  const handleClick = (e: any) => {
     e.preventDefault();
     setLoading(true);
     searchAlbumsAPI(artistValue)
