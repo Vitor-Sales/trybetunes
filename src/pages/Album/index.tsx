@@ -37,6 +37,7 @@ function Album() {
                 key={ trac.trackId }
                 trackName={ trac.trackName }
                 previewUrl={ trac.previewUrl }
+                trackId={ trac.trackId }
               />))}
           </ul>
         </>

@@ -1,9 +1,10 @@
-type MusicType = {
-  trackName: string,
-  previewUrl: string,
-};
+import { useState } from 'react';
+import { SongType } from '../../types';
+import checkedHeart from '../../images/checked_heart.png';
+import emptyHeart from '../../images/empty_heart.png';
 
-function MusicCard({ trackName, previewUrl }: MusicType) {
+function MusicCard({ trackName, previewUrl, trackId }: SongType) {
+  const [isChecked, setIsChecked] = useState(false);
   return (
     <div className="music-card">
       <p>{trackName}</p>
@@ -15,7 +16,18 @@ function MusicCard({ trackName, previewUrl }: MusicType) {
         <code>audio</code>
         .
       </audio>
+      <label
+        htmlFor={ trackId.toString() }
+        data-testid={ `checkbox-music-${trackId}` }
+      >
+        <img src={ isChecked ? checkedHeart : emptyHeart } alt="favorite" />
 
+      </label>
+      <input
+        type="checkbox"
+        id={ trackId.toString() }
+        onClick={ () => setIsChecked(!isChecked) }
+      />
     </div>
   );
 }
