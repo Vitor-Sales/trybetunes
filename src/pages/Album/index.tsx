@@ -1,22 +1,25 @@
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import getMusics from '../../services/musicsAPI';
-import { TrackType } from '../../types';
+import { TrackType, AlbumType, SongType, AlbumInfoType } from '../../types';
 import MusicCard from '../MusicCard';
 
 function Album() {
   const [loading, setLoading] = useState(true);
   const [tracks, setTracks] = useState<TrackType>([]);
-  const location = useLocation();
-  console.log(location, 'location');
+  const [infoAlbum, setInfoAlbum] = useState<AlbumInfoType>();
+  const [albumTracks, setAlbumTracks] = useState<(SongType)[]>([]);
+  const params = useParams();
 
-  const { albumId, artistName, albumName } = location.state;
+  const treatAlbum = async () => {
+    setLoading(true);
+    const data = await getMusics(params.id as string);
+    setTracks(data);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    setLoading(true);
-    getMusics(albumId.toString())
-      .then((data) => setTracks(data))
-      .then(() => setLoading(false));
+    treatAlbum();
   }, []);
 
   return (
@@ -25,14 +28,16 @@ function Album() {
       {loading && <p>Carregando...</p>}
       {!loading && (
         <>
-          <h3 data-testid="artist-name">{artistName}</h3>
-          <p data-testid="album-name">{albumName}</p>
+          <h3 data-testid="artist-name">{tracks[0].artistName}</h3>
+          <p data-testid="album-name">{tracks[0].collectionName}</p>
           <ul>
-            {tracks.map((track) => (<MusicCard
-              key={ track.trackId }
-              trackName={ track.trackName }
-              previewUrl={ track.previewUrl }
-            />))}
+            {tracks
+              .filter((track) => Object.keys(track).includes('trackId'))
+              .map((trac) => (<MusicCard
+                key={ trac.trackId }
+                trackName={ trac.trackName }
+                previewUrl={ trac.previewUrl }
+              />))}
           </ul>
         </>
       )}

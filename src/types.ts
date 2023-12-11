@@ -22,4 +22,9 @@ export type SongType = {
   previewUrl: string,
 };
 
-export type TrackType = [AlbumType, ...SongType[]];
+export type AlbumInfoType = {
+  artistName: string,
+  collectionName: string,
+};
+
+export type TrackType = [AlbumType | SongType[]];
