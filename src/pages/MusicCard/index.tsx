@@ -1,10 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SongType } from '../../types';
 import checkedHeart from '../../images/checked_heart.png';
 import emptyHeart from '../../images/empty_heart.png';
+import './MusicCard.css';
+import { addSong, removeSong } from '../../services/favoriteSongsAPI';
 
 function MusicCard({ trackName, previewUrl, trackId }: SongType) {
   const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    if (isChecked) {
+      addSong({ trackName, previewUrl, trackId });
+    } else {
+      removeSong({ trackName, previewUrl, trackId });
+    }
+  }, [isChecked]);
+
   return (
     <div className="music-card">
       <p>{trackName}</p>
@@ -26,6 +37,7 @@ function MusicCard({ trackName, previewUrl, trackId }: SongType) {
       <input
         type="checkbox"
         id={ trackId.toString() }
+        className="checkbox"
         onClick={ () => setIsChecked(!isChecked) }
       />
     </div>
