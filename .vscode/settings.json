@@ -1,10 +1,10 @@
 // .vscode/settings.json
 
 {
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true,
-      "source.fixAll.stylelint": true,
-    },
-    "extensions.ignoreRecommendations": false,
-  }
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
+  "extensions.ignoreRecommendations": false
+}
